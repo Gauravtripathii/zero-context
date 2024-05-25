@@ -1,11 +1,9 @@
-
+import Logo from "./components/logo";
 
 export default function Home() {
   return (
-    <main className="w-full h-screen">
-      <div className="line-through text-4xl font-bold text-red-500 font-mono">
-        Hello, There!
-      </div>
+    <main className="w-full h-screen bg-cyan-dark">
+      <Logo custom="text-5xl" />
     </main>
   );
 }
