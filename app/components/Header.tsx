@@ -16,9 +16,9 @@ const Header = () => {
     setPopupState("absolute");
   };
   return (
-    <header className="bg-cyan-dark h-1/6 flex items-center justify-between px-5">
-      <Logo custom="text-3xl" />
-      <div className="auth uppercase text-md font-semibold flex items-center gap-5">
+    <header className="bg-cyan-dark h-1/6 flex items-center justify-between px-5 sm:px-10 lg:px-14 xl:px-24">
+      <Logo custom="text-3xl sm:text-5xl" />
+      <div className="auth uppercase text-md sm:text-2xl font-semibold flex items-center gap-5 xl:gap-10">
         <div
           className="login text-white cursor-pointer"
           onClick={loginBtnHandler}
@@ -26,7 +26,7 @@ const Header = () => {
           login
         </div>
         <div
-          className="signup bg-white hover:bg-cyan-dark text-cyan-dark hover:text-white border-2 border-white rounded-xl px-3 py-2 cursor-pointer"
+          className="signup bg-white hover:bg-cyan-dark text-cyan-dark hover:text-white border-2 border-white rounded-xl px-3 md:px-4 py-2 md:py-3 cursor-pointer"
           onClick={signupBtnHandler}
         >
           signup
