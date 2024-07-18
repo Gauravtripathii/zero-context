@@ -1,11 +1,11 @@
-// import Logo from "./components/logo";
 import Header from "./components/Header";
+import Main from "./components/Main";
 
 export default function Home() {
   return (
     <main className="w-full h-screen">
-      {/* <Logo custom="text-5xl" /> */}
       <Header />
+      <Main />
     </main>
   );
 }
