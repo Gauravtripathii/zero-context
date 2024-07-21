@@ -55,11 +55,18 @@ const Header = () => {
 
     setPopupState("hidden");
   };
+  const logout = async () => {
+    await axios
+      .delete("/api/me")
+      .then((response) => {
+        setIsLoggedIn(false);
+      })
+      .catch((error) => console.log("Failed while trying to logout", error));
+  };
 
-  // useEffect(() => {
-
-  //   getUserData();
-  // }, []);
+  useEffect(() => {
+    getUserData();
+  }, []);
   return (
     <header className="bg-cyan-dark h-1/6 flex items-center justify-between px-5 sm:px-10 lg:px-14 xl:px-24">
       <Logo custom="text-3xl sm:text-5xl" />
@@ -80,7 +87,10 @@ const Header = () => {
             </div>
           </div>
         ) : (
-          <div className="logout bg-white hover:bg-cyan-dark text-cyan-dark hover:text-white border-2 border-white rounded-xl px-3 md:px-4 py-2 md:py-3 cursor-pointer">
+          <div
+            className="logout bg-white hover:bg-cyan-dark text-cyan-dark hover:text-white border-2 border-white rounded-xl px-3 md:px-4 py-2 md:py-3 cursor-pointer"
+            onClick={logout}
+          >
             logout
           </div>
         )}
