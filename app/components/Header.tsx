@@ -55,6 +55,26 @@ const Header = () => {
 
     setPopupState("hidden");
   };
+  const login = async () => {
+
+    await axios
+      .post("/api/login", {
+        username: userData?.username,
+        password: userData?.password,
+      })
+      .then((response) => {
+        getUserData();
+      })
+      .catch((error) => console.log(error));
+    setPopupState("hidden");
+
+    setUserData({
+      username: "",
+      email: "",
+      password: "",
+      message: "",
+    });
+  };
   const logout = async () => {
     await axios
       .delete("/api/me")
@@ -106,7 +126,44 @@ const Header = () => {
             &times;
           </div>
           {authMode === "login" ? (
-            <div>Login</div>
+            <div className="p-5">
+              <input
+                type="text"
+                className="mt-5 px-3 py-2 outline-none w-full border rounded-xl"
+                placeholder="Username"
+                value={`${userData?.username}`}
+                onChange={(event) =>
+                  setUserData((prevUserData) => ({
+                    ...prevUserData,
+                    username: event.target.value,
+                    email: prevUserData?.email || "",
+                    password: prevUserData?.password || "",
+                    message: prevUserData?.message || "",
+                  }))
+                }
+              />
+              <input
+                type="password"
+                className="mt-5 px-3 py-2 outline-none w-full border rounded-xl"
+                placeholder="Password"
+                value={`${userData?.password}`}
+                onChange={(event) =>
+                  setUserData((prevUserData) => ({
+                    ...prevUserData,
+                    password: event.target.value,
+                    email: prevUserData?.email || "",
+                    username: prevUserData?.username || "",
+                    message: prevUserData?.message || "",
+                  }))
+                }
+              />
+              <button
+                className="mt-5 px-3 py-2 outline-none w-full border border-black rounded-xl font-bold text-white bg-black hover:text-black hover:bg-white"
+                onClick={login}
+              >
+                Login
+              </button>
+            </div>
           ) : (
             <div className="p-5">
               <input
