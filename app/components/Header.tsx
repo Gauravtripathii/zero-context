@@ -9,7 +9,7 @@ import axios from "axios";
 
 import Logo from "./logo";
 
-const Header = () => {
+const Header = ({updateLoginStatus, isLoggedIn}: any) => {
   const [popupState, setPopupState] = useState("hidden");
   const [authMode, setAuthMode] = useState("login");
   const [userData, setUserData] = useState<User | null>({
@@ -18,7 +18,6 @@ const Header = () => {
     password: "",
     message: "",
   });
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const loginBtnHandler = () => {
     console.log("Login Btn Clicked");
@@ -36,7 +35,7 @@ const Header = () => {
       .get("/api/me")
       .then((response) => {
         console.log("Response after fetching data from token : ", response);
-        setIsLoggedIn(true);
+        updateLoginStatus(true);
       })
       .catch((error) => console.log(error));
   };
@@ -79,7 +78,7 @@ const Header = () => {
     await axios
       .delete("/api/me")
       .then((response) => {
-        setIsLoggedIn(false);
+        updateLoginStatus(false);
       })
       .catch((error) => console.log("Failed while trying to logout", error));
   };
@@ -118,9 +117,9 @@ const Header = () => {
       <div
         className={`popup-wrapper ${popupState} top-0 left-0 w-full h-full flex items-center justify-center bg-[rgba(0,0,0,0.4)]`}
       >
-        <div className="popup bg-white border border-black rounded-md w-3/4 h-fit pb-5 relative">
+        <div className="popup bg-white border border-black rounded-md w-3/4 md:w-1/2 h-fit pb-5 md:pt-5 md:px-5 relative">
           <div
-            className="close-btn text-3xl absolute top-0 right-3 cursor-pointer"
+            className="close-btn text-3xl md:text-5xl absolute top-0 right-3 cursor-pointer"
             onClick={() => setPopupState("hidden")}
           >
             &times;
@@ -129,7 +128,7 @@ const Header = () => {
             <div className="p-5">
               <input
                 type="text"
-                className="mt-5 px-3 py-2 outline-none w-full border rounded-xl"
+                className="mt-5 px-3 md:px-5 py-2 md:py-4 outline-none w-full border rounded-xl md:text-xl"
                 placeholder="Username"
                 value={`${userData?.username}`}
                 onChange={(event) =>
@@ -144,7 +143,7 @@ const Header = () => {
               />
               <input
                 type="password"
-                className="mt-5 px-3 py-2 outline-none w-full border rounded-xl"
+                className="mt-5 px-3 md:px-5 py-2 md:py-4 outline-none w-full border rounded-xl md:text-xl"
                 placeholder="Password"
                 value={`${userData?.password}`}
                 onChange={(event) =>
@@ -158,7 +157,7 @@ const Header = () => {
                 }
               />
               <button
-                className="mt-5 px-3 py-2 outline-none w-full border border-black rounded-xl font-bold text-white bg-black hover:text-black hover:bg-white"
+                className="mt-5 px-3 py-2 outline-none w-full border border-black rounded-xl font-bold text-white bg-black hover:text-black hover:bg-white md:text-xl"
                 onClick={login}
               >
                 Login
@@ -168,7 +167,7 @@ const Header = () => {
             <div className="p-5">
               <input
                 type="text"
-                className="mt-5 px-3 py-2 outline-none w-full border rounded-xl"
+                className="mt-5 px-3 md:px-5 py-2 md:py-4 outline-none w-full border rounded-xl md:text-xl"
                 placeholder="Username"
                 value={`${userData?.username}`}
                 onChange={(event) =>
@@ -183,7 +182,7 @@ const Header = () => {
               />
               <input
                 type="email"
-                className="mt-5 px-3 py-2 outline-none w-full border rounded-xl"
+                className="mt-5 px-3 md:px-5 py-2 md:py-4 outline-none w-full border rounded-xl md:text-xl"
                 placeholder="Email address"
                 value={`${userData?.email}`}
                 onChange={(event) =>
@@ -198,7 +197,7 @@ const Header = () => {
               />
               <input
                 type="password"
-                className="mt-5 px-3 py-2 outline-none w-full border rounded-xl"
+                className="mt-5 px-3 md:px-5 py-2 md:py-4 outline-none w-full border rounded-xl md:text-xl"
                 placeholder="Password"
                 value={`${userData?.password}`}
                 onChange={(event) =>
@@ -212,7 +211,7 @@ const Header = () => {
                 }
               />
               <button
-                className="mt-5 px-3 py-2 outline-none w-full border border-black rounded-xl font-bold text-white bg-black hover:text-black hover:bg-white"
+                className="mt-5 px-3 py-2 outline-none w-full border border-black rounded-xl font-bold text-white bg-black hover:text-black hover:bg-white md:text-xl"
                 onClick={signUp}
               >
                 Signup
