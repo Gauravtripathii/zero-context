@@ -1,13 +1,10 @@
 interface TextCardType {
-    message: String;
-};
+  message: String;
+  styles: String;
+}
 
-const TextCard: React.FC<TextCardType> = ({message}) => {
-  return (
-    <div className="inline text-white bg-black px-5 py-3 rounded-3xl">
-      {message}
-    </div>
-  );
+const TextCard: React.FC<TextCardType> = ({ message, styles }) => {
+  return <div className={`flex items-center justify-center ${styles}`}>{message}</div>;
 };
 
 export default TextCard;
