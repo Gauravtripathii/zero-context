@@ -9,7 +9,9 @@ import axios from "axios";
 
 import Logo from "./logo";
 
-const Header = ({updateLoginStatus, isLoggedIn}: any) => {
+import toast from "react-hot-toast";
+
+const Header = ({ updateLoginStatus, isLoggedIn }: any) => {
   const [popupState, setPopupState] = useState("hidden");
   const [authMode, setAuthMode] = useState("login");
   const [userData, setUserData] = useState<User | null>({
@@ -34,13 +36,13 @@ const Header = ({updateLoginStatus, isLoggedIn}: any) => {
     await axios
       .get("/api/me")
       .then((response) => {
-        console.log("Response after fetching data from token : ", response);
+        // console.log("Response after fetching data from token : ", response);
         updateLoginStatus(true);
       })
       .catch((error) => console.log(error));
   };
   const signUp = async () => {
-    console.log(userData);
+    // console.log(userData);
     await axios
       .post("/api/signup", {
         username: userData?.username,
@@ -49,13 +51,13 @@ const Header = ({updateLoginStatus, isLoggedIn}: any) => {
       })
       .then((response) => {
         getUserData();
+        toast.success("Welcome new user!");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => toast.error("Signup failed!"));
 
     setPopupState("hidden");
   };
   const login = async () => {
-
     await axios
       .post("/api/login", {
         username: userData?.username,
@@ -63,8 +65,9 @@ const Header = ({updateLoginStatus, isLoggedIn}: any) => {
       })
       .then((response) => {
         getUserData();
+        toast.success("Welcome back user!");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => toast.error("Login failed!"));
     setPopupState("hidden");
 
     setUserData({
@@ -79,8 +82,9 @@ const Header = ({updateLoginStatus, isLoggedIn}: any) => {
       .delete("/api/me")
       .then((response) => {
         updateLoginStatus(false);
+        toast.success("Come back soon!")
       })
-      .catch((error) => console.log("Failed while trying to logout", error));
+      .catch((error) => toast.error("Failed while logging out!"));
   };
 
   useEffect(() => {

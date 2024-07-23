@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inika } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 const inika = Inika({ weight: ["400", "700"], subsets: ["latin"] });
@@ -16,7 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inika.className}>{children}</body>
+      <body className={inika.className}>
+        {children}
+        <Toaster position="bottom-center" />
+      </body>
     </html>
   );
 }
